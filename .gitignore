@@ -1,5 +1,6 @@
 .env
-data/
 bootstrap
-go.sum
-__debug*
+/data
+*-cover.out
+*-cover.html
+nexus
