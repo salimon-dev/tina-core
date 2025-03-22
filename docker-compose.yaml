@@ -1,28 +1,29 @@
 version: "3.8"
 
 services:
-  nexus:
+  tina:
+    # image: pitronumdev/tina:dev
     build:
       context: .
       dockerfile: Dockerfile
     env_file:
       - .env
     ports:
-      - "3000:80"
+      - "3001:80"
     networks:
-      - nexus-dev
+      - tina-dev
   pgsql:
     image: postgres:alpine
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: rootpassword
-      POSTGRES_DB: nexus
+      POSTGRES_DB: tina
     ports:
-      - "5432:5432"
+      - "4001:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
     networks:
-      - nexus-dev
+      - tina-dev
 
 networks:
-  nexus-dev:
+  tina-dev:

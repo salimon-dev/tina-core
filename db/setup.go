@@ -2,8 +2,9 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"os"
-	"salimon/nexus/types"
+	"salimon/tina-core/types"
 	"time"
 
 	_ "github.com/golang-migrate/migrate/v4/source/file" // Import file driver
@@ -18,9 +19,6 @@ var DB *gorm.DB
 func SetupDatabase() {
 	DB = initGormConnection()
 	DB.AutoMigrate(types.User{})
-	DB.AutoMigrate(types.Verification{})
-	DB.AutoMigrate(types.Entity{})
-	DB.AutoMigrate(types.Invitation{})
 }
 
 // generate connection string from  environment variables
@@ -37,10 +35,10 @@ func generateConnectionString() string {
 func initGormConnection() *gorm.DB {
 	connectionString := generateConnectionString()
 	for {
-		fmt.Println("connecting to database")
+		log.Println("connecting to database")
 		db, err := gorm.Open(postgres.Open(connectionString), &gorm.Config{})
 		if err != nil {
-			fmt.Println(err)
+			log.Println(err)
 			time.Sleep(time.Second * 3)
 			continue
 		}

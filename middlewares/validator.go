@@ -36,6 +36,14 @@ func translateValidationError(err *ValidationError) string {
 	}
 }
 
+func parseValidationErrors(errors []ValidationError) map[string]string {
+	result := map[string]string{}
+	for _, err := range errors {
+		result[err.Field] = translateValidationError(&err)
+	}
+	return result
+}
+
 func getJSONFieldName(structType reflect.Type, fieldName string) string {
 	field, found := structType.FieldByName(fieldName)
 	if !found {

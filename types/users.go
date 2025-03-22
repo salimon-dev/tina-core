@@ -24,24 +24,21 @@ const (
 
 type User struct {
 	Id           uuid.UUID  `json:"id" gorm:"type:uuid;primaryKey"`
+	Network      string     `json:"network" gorm:"size:32;not null"`
+	NetworkId    uuid.UUID  `json:"network_id" gorm:"type:uuid"`
 	Username     string     `json:"username" gorm:"size:32;unique;not null"`
-	Password     string     `json:"password" gorm:"size:32"`
-	InvitationId uuid.UUID  `json:"invitation_id" gorm:"type:uuid"`
-	Credit       int32      `json:"credit" gorm:"type:numeric"`
-	Role         UserRole   `json:"role" gorm:"type:numeric"`
+	Usage        int32      `json:"usage" gorm:"type:numeric"`
 	Status       UserStatus `json:"status" gorm:"type:numeric"`
-	SecretKey    string     `json:"secret_key" gotm:"size:64;not null"`
-	RegisteredAt time.Time  `json:"registered_at" gorm:"type:TIMESTAMP WITH TIME ZONE"`
+	Role         UserRole   `json:"role"`
+	RegisteredAt time.Time  `json:"registered_at"`
+	CreateAt     time.Time  `json:"created_at" gorm:"type:TIMESTAMP WITH TIME ZONE"`
 	UpdatedAt    time.Time  `json:"updated_at" gorm:"type:TIMESTAMP WITH TIME ZONE"`
 }
 
-type PublicUser struct {
-	Id           string    `json:"id"`
-	Username     string    `json:"username"`
-	Credit       int32     `json:"credit"`
-	Usage        int32     `json:"usage"`
-	Role         string    `json:"role"`
-	Status       string    `json:"status"`
-	RegisteredAt time.Time `json:"registered_at"`
-	UpdatedAt    time.Time `json:"updated_at"`
+type UserData struct {
+	Id           uuid.UUID  `json:"id"`
+	Username     string     `json:"username"`
+	Status       UserStatus `json:"status"`
+	Role         UserRole   `json:"role"`
+	RegisteredAt time.Time  `json:"registered_at"`
 }

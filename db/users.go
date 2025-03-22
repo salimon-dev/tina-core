@@ -1,7 +1,7 @@
 package db
 
 import (
-	"salimon/nexus/types"
+	"salimon/tina-core/types"
 
 	"gorm.io/gorm"
 )
