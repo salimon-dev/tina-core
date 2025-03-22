@@ -1,14 +1,9 @@
 FROM golang:alpine as builder
 WORKDIR /app
 COPY . /app
+RUN go build -o bootstrap .
 
-ARG GOOS=linux
-ARG GOARCH=amd64
-
-RUN GOOS=${GOOS} GOARCH=${GOARCH} go build -o bootstrap .
-RUN file bootstrap
-
-FROM alpine:latest
+FROM scratch
 WORKDIR /app
 COPY --from=builder /app/bootstrap ./bootstrap
 ENTRYPOINT [ "./bootstrap" ]
