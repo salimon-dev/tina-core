@@ -4,10 +4,8 @@ COPY . /app
 
 ARG GOOS=linux
 ARG GOARCH=amd64
-ENV GOOS=${GOOS}
-ENV GOARCH=${GOARCH}
 
-RUN go build -o bootstrap .
+RUN GOOS=${GOOS} GOARCH=${GOARCH} go build -o bootstrap .
 
 FROM scratch
 WORKDIR /app
