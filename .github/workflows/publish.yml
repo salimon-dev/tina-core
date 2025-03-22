@@ -28,9 +28,12 @@ jobs:
         with:
           context: .
           push: true
-          platforms: linux/amd64,linux/arm64,linux/386,linux/ppc64le,linux/s390x
+          platforms: linux/amd64
+          build-args: |
+            GOOS=linux
+            GOARCH=amd64
           tags: |
-            pitronumdev/tina:${{ github.ref == 'refs/heads/main' && 'latest' || 'dev' }}
+            pitronumdev/tina:${{ github.ref == 'refs/heads/main' && 'stable' || 'dev' }}
       - name: Rollout
         uses: appleboy/ssh-action@master
         with:
